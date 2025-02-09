@@ -7,3 +7,10 @@ example of an olympic country:
     participations: []
 }
 */
+import { participations } from "./Participation";
+
+export interface country {
+    id: number;
+    country: string;
+    participations : participations[];
+}
