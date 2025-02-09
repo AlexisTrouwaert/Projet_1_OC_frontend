@@ -18,7 +18,7 @@
     backdrop-filter: blur(5.6px);
     -webkit-backdrop-filter: blur(5.6px);
     border: 1px solid rgba(180, 180, 180, 0.31);
-    width: 300px;
+    width: 25vw;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -46,8 +46,8 @@
     padding: 20px;
 }
 
-.chartCountainer{
-    width: 100vw;
+.chartContainer{
+    width: 100%;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -67,9 +67,17 @@
 }
 
 h2, h3, p {
-    font-size: clamp(0.2rem, 1rem, 10rem);
+    font-size: clamp(0.01rem, 1rem, 10rem);
 }
 
-.allCharts{
-    margin-top: 100px;
+@media (min-width: 715px) {
+    .chart{
+        width: 60%;
+    }
+}
+
+@media (max-width: 450px) {
+    h3{
+        font-size: 0.60rem;
+    }
 }
