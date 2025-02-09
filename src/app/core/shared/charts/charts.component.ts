@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { ApexChart, ApexLegend, ApexResponsive, ApexTitleSubtitle, ApexOptions } from "ng-apexcharts";
+import { ApexChart, ApexLegend, ApexResponsive, ApexTitleSubtitle, ApexDataLabels } from "ng-apexcharts";
 import { NgApexchartsModule } from 'ng-apexcharts';
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { CommonModule } from '@angular/common';
@@ -30,6 +30,9 @@ export class ChartsComponent {
       series: this.series,
       chart: { width: 780, type: "pie" },
       labels: this.labels,
+      dataLabels: {
+        enabled: false, // Désactive les pourcentages
+      },
       responsive: [{
         breakpoint: 480,
         options: {
@@ -48,6 +51,9 @@ export class ChartsComponent {
       type: "pie",
     } as ApexChart,
     labels: this.labels,
+    dataLabels: {
+      enabled: false, // Désactive les pourcentages
+    },
     responsive: [
       {
         breakpoint: 480,
