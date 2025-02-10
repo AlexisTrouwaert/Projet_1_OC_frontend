@@ -15,7 +15,6 @@ import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
     NgApexchartsModule,
     ChartsComponent,
   ],
-  
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss'],
@@ -23,6 +22,7 @@ import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 export class HomeComponent implements OnInit {
   public olympics$: Observable<country[]> = of([]);
   olympicsData: country[] = []
+  nbJo: number = 0
 
   labels: string[] = []
   series : number[] = []
@@ -38,6 +38,7 @@ export class HomeComponent implements OnInit {
         this.olympicsData = data
         this.getLabels(data)
         this.getMedalsCount(data)
+        this.nbJo = data[0].participations.length
       } else {
         console.log('données en cours de chargement')
       }

@@ -3,6 +3,7 @@
     justify-content: center;
     align-items: center;
     width: 55vw;
+    max-width: 90%;
     background: rgba(180, 180, 180, 0.26);
     border-radius: 16px;
     box-shadow: 0 4px 30px rgba(0, 0, 0, 0.205);
@@ -19,6 +20,7 @@
     -webkit-backdrop-filter: blur(5.6px);
     border: 1px solid rgba(180, 180, 180, 0.31);
     width: 25vw;
+    max-width: 80%;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -36,9 +38,6 @@
 }
 
 .title{
-    display: flex;
-    align-items: center;
-    justify-content: center;
     margin: 10px;
 }
 
@@ -47,23 +46,22 @@
 }
 
 .chartContainer{
-    width: 100%;
+    width: 100vw;
     display: flex;
     align-items: center;
     justify-content: center;
 }
 
 .all{
-    background-image: url('../../../assets/bg/JO.jpg');
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: cover;
+    background: rgb(43,43,56);
+    background: linear-gradient(18deg, rgba(43,43,56,1) 0%, rgba(60,60,110,1) 48%, rgba(105,83,124,1) 100%);
     height: 100vh;
     width: 100vw;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    color: white;
 }
 
 h2, h3, p {
@@ -80,4 +78,8 @@ h2, h3, p {
     h3{
         font-size: 0.60rem;
     }
+}
+
+.logo{
+    height: 15vh;
 }

@@ -1,8 +1,9 @@
-import { Component, Input } from '@angular/core';
-import { ApexChart, ApexLegend, ApexResponsive, ApexTitleSubtitle, ApexDataLabels } from "ng-apexcharts";
+import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { ApexChart, ApexLegend, ApexResponsive, ApexTitleSubtitle, ApexDataLabels, ApexPlotOptions } from "ng-apexcharts";
 import { NgApexchartsModule } from 'ng-apexcharts';
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-charts',
@@ -21,6 +22,10 @@ export class ChartsComponent {
   @Input() series: number[] = []; // Les données pour le graphique
   @Input() labels: string[] = []; // Les labels des données
 
+  constructor (private router : Router) {
+
+  }
+
   ngOnChanges(): void {
     this.updateChart();
   }
@@ -28,31 +33,49 @@ export class ChartsComponent {
   updateChart(): void {
     this.chartOptions = {
       series: this.series,
-      chart: { width: 780, type: "pie" },
+      chart: { 
+        width: '100%', 
+        type: "pie",
+        events: {
+          dataPointSelection: (event, chartContext, config) => {
+            console.log('clicked on index', config.dataPointIndex)
+            this.router.navigate(['/details/', config.dataPointIndex])
+          }
+        }
+      },
       labels: this.labels,
       dataLabels: {
         enabled: false, // Désactive les pourcentages
       },
+      plotOptions: {
+        pie: {
+          expandOnClick: true // Agrandit la part cliquée
+        }
+      },
       responsive: [{
-        breakpoint: 480,
+        breakpoint: 715,
         options: {
-          chart: { width: 200 },
+          chart: { width: 250 },
           legend: { position: "bottom" }
         }
       }],
-      title: { text: "Répartition des médailles par pays", align: 'center'},
     };
   }
 
   chartOptions = {
     series: this.series,
     chart: {
-      width: 380,
+      width: '100%',
       type: "pie",
     } as ApexChart,
     labels: this.labels,
     dataLabels: {
       enabled: false, // Désactive les pourcentages
+    },
+    plotOptions: {
+      pie: {
+        expandOnClick: true // Agrandit la part cliquée
+      }
     },
     responsive: [
       {
@@ -67,8 +90,5 @@ export class ChartsComponent {
         }
       }
     ] as ApexResponsive[],
-    title: {
-      text: "Chargement des données"
-    } as ApexTitleSubtitle
   };
 }
