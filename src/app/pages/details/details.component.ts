@@ -4,16 +4,16 @@ import { participations } from 'src/app/core/models/Participation';
 import { OlympicService } from 'src/app/core/services/olympic.service';
 import { country } from 'src/app/core/models/Olympic';
 import { Observable, of } from 'rxjs';
-import { ChartsComponent } from 'src/app/core/shared/charts/charts.component';
 import { NgApexchartsModule } from 'ng-apexcharts';
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import { ChartDetailsComponent } from 'src/app/core/shared/chart-details/chart-details.component';
 
 @Component({
   selector: 'app-details',
   standalone: true,
   imports: [
     NgApexchartsModule,
-    ChartsComponent,
+    ChartDetailsComponent,
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   templateUrl: './details.component.html',
@@ -24,10 +24,11 @@ export class DetailsComponent implements OnInit{
   dataCountry: participations[] = []
   index!: number;
   countryName!: string;
-  labels: number[] = []
+  labels: string[] = []
   totalMedals: number = 0;
   totalAthlete: number = 0;
   series : number[] = []
+  axis: number [] = []
 
   constructor (private route : ActivatedRoute, private olympicService: OlympicService) {
     this.olympics$ = this.olympicService.getOlympics();
@@ -43,6 +44,7 @@ export class DetailsComponent implements OnInit{
           this.getLabels(this.dataCountry)
           this.getTotalMedals(this.dataCountry)
           this.getTotalAthlete(this.dataCountry)
+          this.getAxis(this.dataCountry)
         } else {
           console.log('données en cours de chargement')
         }
@@ -51,7 +53,7 @@ export class DetailsComponent implements OnInit{
 
   getLabels(data: participations[]): void {
     if (Array.isArray(data)) {
-      this.labels = data.map(country => country.year);
+      this.labels = data.map(country => country.city);
       console.log('Tableau des labels =>',this.labels)
     } else {
       console.error('data n\'est pas un tableau valide', data);
@@ -71,6 +73,15 @@ export class DetailsComponent implements OnInit{
     if (Array.isArray(data)){
       this.totalAthlete = data.reduce((acc, medals) => acc + (medals.athleteCount || 0), 0);
       console.log('Total des athletes =>', this.totalAthlete);
+    } else {
+      console.error('data n\'est pas un tableau valide', data);
+    }
+  }
+
+  getAxis(data : participations[]): void {
+    if (Array.isArray(data)) {
+      this.axis = data.map(country => country.year);
+      console.log('Tableau des axis =>',this.axis)
     } else {
       console.error('data n\'est pas un tableau valide', data);
     }
