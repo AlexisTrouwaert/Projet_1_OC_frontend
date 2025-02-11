@@ -1,5 +1,5 @@
 import { Component, EventEmitter, input, Input, Output } from '@angular/core';
-import { ApexChart, ApexLegend, ApexResponsive, ApexTitleSubtitle, ApexDataLabels, ApexPlotOptions, ApexStroke } from "ng-apexcharts";
+import { ApexChart, ApexLegend, ApexResponsive, ApexTitleSubtitle, ApexDataLabels, ApexPlotOptions, ApexStroke, ApexXAxis, ApexYAxis } from "ng-apexcharts";
 import { NgApexchartsModule } from 'ng-apexcharts';
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { CommonModule } from '@angular/common';
@@ -49,17 +49,33 @@ export class ChartDetailsComponent {
         curve: 'straight'
       },
       title: {
-        text: 'Product Trends by Month',
-        align: 'left'
+        text: 'Medals',
+        align: 'left',
+        style: {
+          color: 'white'
+        }
       },
       grid: {
         row: {
-          colors: ['#f3f3f3', 'transparent'], // takes an array which will be repeated on columns
+          colors: ['#f3f3f35e', '#f3f3f3a8'], // takes an array which will be repeated on columns
           opacity: 0.5
         },
       },
       xaxis: {
         categories: this.axis,
+        labels: {
+          style : {
+            colors: 'white'
+          }
+        }
+      },
+      yaxis: {
+        min: 0,
+        labels:{
+          style:{
+            colors: ['#ffffff']
+          }
+        }
       },
       responsive: [{
         breakpoint: 715,
@@ -91,7 +107,10 @@ export class ChartDetailsComponent {
     } as ApexStroke,
     title: {
       text: 'Product Trends by Month',
-      align: 'left'
+      align: 'left',
+      style: {
+        color: 'white'
+      }
     } as ApexTitleSubtitle,
     grid: {
       row: {
@@ -101,7 +120,20 @@ export class ChartDetailsComponent {
     },
     xaxis: {
       categories: this.axis,
-    },
+      labels: {
+        style : {
+          colors: 'white'
+        }
+      }
+    } as ApexXAxis,
+    yaxis: {
+      min: 0,
+      labels:{
+        style:{
+          colors: 'white'
+        }
+      }
+    } as ApexYAxis,
     responsive: [
       {
         breakpoint: 480,
