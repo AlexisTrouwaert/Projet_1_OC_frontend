@@ -45,6 +45,7 @@ export class DetailsComponent implements OnInit{
           this.getTotalMedals(this.dataCountry)
           this.getTotalAthlete(this.dataCountry)
           this.getAxis(this.dataCountry)
+          this.getSerie(this.dataCountry)
         } else {
           console.log('données en cours de chargement')
         }
@@ -82,6 +83,15 @@ export class DetailsComponent implements OnInit{
     if (Array.isArray(data)) {
       this.axis = data.map(country => country.year);
       console.log('Tableau des axis =>',this.axis)
+    } else {
+      console.error('data n\'est pas un tableau valide', data);
+    }
+  }
+
+  getSerie(data : participations[]): void{
+    if (Array.isArray(data)) {
+      this.series = data.map(country => country.medalsCount);
+      console.log('Tableau des series =>',this.series)
     } else {
       console.error('data n\'est pas un tableau valide', data);
     }

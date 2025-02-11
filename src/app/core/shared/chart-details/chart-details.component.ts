@@ -42,11 +42,14 @@ export class ChartDetailsComponent {
           enabled: false,
         }
       },
+      dataLabels: {
+        enabled: false, // Désactive les pourcentages
+      },
       stroke: {
         curve: 'straight'
       },
       title: {
-        text: 'Medals',
+        text: 'Product Trends by Month',
         align: 'left'
       },
       grid: {
@@ -58,6 +61,13 @@ export class ChartDetailsComponent {
       xaxis: {
         categories: this.axis,
       },
+      responsive: [{
+        breakpoint: 715,
+        options: {
+          chart: { width: 250 },
+          legend: { position: "bottom" }
+        }
+      }],
     };
   }
   
@@ -73,11 +83,14 @@ export class ChartDetailsComponent {
         enabled: false,
       }
     } as ApexChart,
+    dataLabels: {
+      enabled: false, // Désactive les pourcentages
+    },
     stroke: {
       curve: 'straight'
     } as ApexStroke,
     title: {
-      text: 'Medals',
+      text: 'Product Trends by Month',
       align: 'left'
     } as ApexTitleSubtitle,
     grid: {
@@ -89,6 +102,19 @@ export class ChartDetailsComponent {
     xaxis: {
       categories: this.axis,
     },
+    responsive: [
+      {
+        breakpoint: 480,
+        options: {
+          chart: {
+            width: 200
+          },
+          legend: {
+            position: "bottom"
+          } as ApexLegend
+        }
+      }
+    ] as ApexResponsive[],
   };
 }
 
