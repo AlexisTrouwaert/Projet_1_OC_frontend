@@ -21,9 +21,12 @@ import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 })
 export class DetailsComponent implements OnInit{
   public olympics$: Observable<country[]> = of([]);
+  dataCountry: participations[] = []
   index!: number;
   countryName!: string;
-  labels: string[] = []
+  labels: number[] = []
+  totalMedals: number = 0;
+  totalAthlete: number = 0;
   series : number[] = []
 
   constructor (private route : ActivatedRoute, private olympicService: OlympicService) {
@@ -34,30 +37,40 @@ export class DetailsComponent implements OnInit{
       this.index = Number(this.route.snapshot.paramMap.get('index'));
       this.olympics$.subscribe((data => {
         if(data && Array.isArray(data) && data.length > 0){
+          this.dataCountry = data[this.index].participations
+          console.log('Data of country =>',this.dataCountry)
           this.countryName = data[this.index].country
-          this.getLabels(data)
-          this.getMedalsCount(data)
+          this.getLabels(this.dataCountry)
+          this.getTotalMedals(this.dataCountry)
+          this.getTotalAthlete(this.dataCountry)
         } else {
           console.log('données en cours de chargement')
         }
       }))
   }
 
-  getLabels(data: country[]): void {
+  getLabels(data: participations[]): void {
     if (Array.isArray(data)) {
-      this.labels = data[this.index].participations.map(country => country.city);
-      console.log('labels',this.labels)
+      this.labels = data.map(country => country.year);
+      console.log('Tableau des labels =>',this.labels)
     } else {
       console.error('data n\'est pas un tableau valide', data);
     }
   }
 
-  getMedalsCount(data: country[]): void {
+  getTotalMedals(data: participations[]): void {
     if (Array.isArray(data)){
-      this.series = data.map(country => {
-        return country.participations?.reduce((acc: number, participation: participations) => acc + participation.medalsCount, 0);
-      });
-      console.log('Series:', this.series);
+      this.totalMedals = data.reduce((acc, medals) => acc + (medals.medalsCount || 0), 0);
+      console.log('Total de médailles =>', this.totalMedals);
+    } else {
+      console.error('data n\'est pas un tableau valide', data);
+    }
+  }
+
+  getTotalAthlete(data : participations[]): void {
+    if (Array.isArray(data)){
+      this.totalAthlete = data.reduce((acc, medals) => acc + (medals.athleteCount || 0), 0);
+      console.log('Total des athletes =>', this.totalAthlete);
     } else {
       console.error('data n\'est pas un tableau valide', data);
     }
