@@ -11,6 +11,9 @@ const routes: Routes = [
   },
   {
     path: 'details/:index', component: DetailsComponent
+  },
+  {
+    path: '**', component: NotFoundComponent
   }
 ];
 

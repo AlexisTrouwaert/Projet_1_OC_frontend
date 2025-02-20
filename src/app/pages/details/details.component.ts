@@ -7,6 +7,7 @@ import { Observable, of } from 'rxjs';
 import { NgApexchartsModule } from 'ng-apexcharts';
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { ChartDetailsComponent } from 'src/app/core/shared/chart-details/chart-details.component';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-details',
@@ -30,7 +31,11 @@ export class DetailsComponent implements OnInit{
   series : number[] = []
   axis: number [] = []
 
-  constructor (private route : ActivatedRoute, private olympicService: OlympicService) {
+  constructor (
+    private route : ActivatedRoute, 
+    private olympicService: OlympicService, 
+    private router : Router
+  ) {
     this.olympics$ = this.olympicService.getOlympics();
   }
 
@@ -38,6 +43,10 @@ export class DetailsComponent implements OnInit{
       this.index = Number(this.route.snapshot.paramMap.get('index'));
       this.olympics$.subscribe((data => {
         if(data && Array.isArray(data) && data.length > 0){
+          if (this.index < 0 || this.index >= data.length) {
+            this.router.navigate(['/not-found']); // Rediriger vers la page "Not Found"
+            return; // Sortir de la méthode pour éviter d'accéder aux données
+          }
           this.dataCountry = data[this.index].participations
           console.log('Data of country =>',this.dataCountry)
           this.countryName = data[this.index].country

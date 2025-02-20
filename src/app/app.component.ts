@@ -12,7 +12,7 @@ import { Router } from '@angular/router';
 export class AppComponent implements OnInit {
   constructor(private olympicService: OlympicService, private router : Router) {}
 
-  hiddenRoute: string[] = ['/'];
+  hiddenRoute: string[] = ['/', '/not-found'];
   hiddenBackBtn: boolean = false;
 
   ngOnInit(): void {
