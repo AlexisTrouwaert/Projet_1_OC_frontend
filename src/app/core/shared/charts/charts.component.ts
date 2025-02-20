@@ -26,6 +26,7 @@ export class ChartsComponent {
 
   }
 
+  //Mise à jour du graphique à chaque changement de données
   ngOnChanges(): void {
     this.updateChart();
   }
@@ -62,6 +63,7 @@ export class ChartsComponent {
     };
   }
 
+  //Options du graphique et valeurs par défaut
   chartOptions = {
     series: this.series,
     chart: {

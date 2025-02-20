@@ -9,6 +9,7 @@ import { Component } from '@angular/core';
 })
 export class BackBtnComponent {
 
+  //permet de retourner en arriere dans l'historique du navigateur
   back(): void {
     history.back();
   }

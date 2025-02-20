@@ -25,6 +25,7 @@ export class ChartDetailsComponent {
   
   }
   
+  //Mise à jour du graphique à chaque changement de données
   ngOnChanges(): void {
     this.updateChart();
   }
@@ -90,6 +91,7 @@ export class ChartDetailsComponent {
     };
   }
   
+  //Options du graphique et valeurs par défaut
   chartOptions = {
     series: [{
       name : 'Medals Count',

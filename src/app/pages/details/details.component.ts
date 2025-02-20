@@ -8,6 +8,7 @@ import { NgApexchartsModule } from 'ng-apexcharts';
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { ChartDetailsComponent } from 'src/app/core/shared/chart-details/chart-details.component';
 import { Router } from '@angular/router';
+import { catchError } from 'rxjs/operators';
 
 @Component({
   selector: 'app-details',
@@ -30,19 +31,35 @@ export class DetailsComponent implements OnInit{
   totalAthlete: number = 0;
   series : number[] = []
   axis: number [] = []
+  isOffline: boolean = false;
 
   constructor (
     private route : ActivatedRoute, 
     private olympicService: OlympicService, 
     private router : Router
   ) {
-    this.olympics$ = this.olympicService.getOlympics();
+    this.olympics$ = this.olympicService.getOlympics().pipe(
+      catchError((error) => {
+        console.error('Erreur lors du chargement des données', error);
+        this.router.navigate(['/not-found']); // Rediriger en cas d'échec de la requête
+        return of([]); // Retourne un tableau vide pour éviter le crash
+      })
+    );
   }
 
   ngOnInit(): void {
+
+    this.isOffline = !navigator.onLine;
+    if (this.isOffline) {
+      console.error("Vous êtes hors ligne.");
+      this.router.navigate(['/not-found']); // Redirection si pas de connexion
+      return;
+    }
+    
       this.index = Number(this.route.snapshot.paramMap.get('index'));
       this.olympics$.subscribe((data => {
         if(data && Array.isArray(data) && data.length > 0){
+          //Gestion de la redirection vers la page not found si le parametre de l'url est incorrect
           if (this.index < 0 || this.index >= data.length) {
             this.router.navigate(['/not-found']); // Rediriger vers la page "Not Found"
             return; // Sortir de la méthode pour éviter d'accéder aux données
@@ -61,6 +78,7 @@ export class DetailsComponent implements OnInit{
       }))
   }
 
+  //Permet de récuperer les labels a afficher dans le chart
   getLabels(data: participations[]): void {
     if (Array.isArray(data)) {
       this.labels = data.map(country => country.city);
@@ -70,6 +88,7 @@ export class DetailsComponent implements OnInit{
     }
   }
 
+  //Récupere le total des medails pour un pays
   getTotalMedals(data: participations[]): void {
     if (Array.isArray(data)){
       this.totalMedals = data.reduce((acc, medals) => acc + (medals.medalsCount || 0), 0);
@@ -79,6 +98,7 @@ export class DetailsComponent implements OnInit{
     }
   }
 
+  //Récupere le total des athletes pour un pays
   getTotalAthlete(data : participations[]): void {
     if (Array.isArray(data)){
       this.totalAthlete = data.reduce((acc, medals) => acc + (medals.athleteCount || 0), 0);
@@ -88,6 +108,7 @@ export class DetailsComponent implements OnInit{
     }
   }
 
+  //Récupere les valeurs de l'axe x (année)
   getAxis(data : participations[]): void {
     if (Array.isArray(data)) {
       this.axis = data.map(country => country.year);
@@ -97,6 +118,7 @@ export class DetailsComponent implements OnInit{
     }
   }
 
+  //Récupere les valeurs de la serie (medailles) pour un pays et ajuster la courbe du chart
   getSerie(data : participations[]): void{
     if (Array.isArray(data)) {
       this.series = data.map(country => country.medalsCount);
