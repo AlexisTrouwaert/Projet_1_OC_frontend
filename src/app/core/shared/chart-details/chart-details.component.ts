@@ -1,5 +1,5 @@
 import { Component, EventEmitter, input, Input, Output } from '@angular/core';
-import { ApexChart, ApexLegend, ApexResponsive, ApexTitleSubtitle, ApexDataLabels, ApexPlotOptions, ApexStroke, ApexXAxis, ApexYAxis } from "ng-apexcharts";
+import { ApexChart, ApexLegend, ApexResponsive, ApexTitleSubtitle, ApexDataLabels, ApexPlotOptions, ApexStroke, ApexXAxis, ApexYAxis, ApexTooltip } from "ng-apexcharts";
 import { NgApexchartsModule } from 'ng-apexcharts';
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { CommonModule } from '@angular/common';
@@ -43,7 +43,7 @@ export class ChartDetailsComponent {
         }
       },
       dataLabels: {
-        enabled: false, // Désactive les pourcentages
+        enabled: false,
       },
       stroke: {
         curve: 'straight'
@@ -52,12 +52,12 @@ export class ChartDetailsComponent {
         text: 'Medals',
         align: 'left',
         style: {
-          color: 'white'
+          color: 'black'
         }
       },
       grid: {
         row: {
-          colors: ['#f3f3f35e', '#f3f3f3a8'], // takes an array which will be repeated on columns
+          colors: ['#f3f3f35e', '#f3f3f3a8'],
           opacity: 0.5
         },
       },
@@ -65,7 +65,7 @@ export class ChartDetailsComponent {
         categories: this.axis,
         labels: {
           style : {
-            colors: 'white'
+            colors: 'black'
           }
         }
       },
@@ -73,14 +73,17 @@ export class ChartDetailsComponent {
         min: 0,
         labels:{
           style:{
-            colors: ['#ffffff']
+            colors: ['#000000']
           }
         }
       },
+      tooltip: {
+        theme: "dark"
+      } as ApexTooltip,
       responsive: [{
-        breakpoint: 715,
+        breakpoint: 463,
         options: {
-          chart: { width: 250 },
+          chart: { width: 200 },
           legend: { position: "bottom" }
         }
       }],
@@ -134,6 +137,9 @@ export class ChartDetailsComponent {
         }
       }
     } as ApexYAxis,
+    tooltip: {
+      theme: "dark" 
+    } as ApexTooltip,
     responsive: [
       {
         breakpoint: 480,

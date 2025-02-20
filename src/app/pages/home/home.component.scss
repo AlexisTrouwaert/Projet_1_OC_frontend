@@ -39,6 +39,10 @@
 
 .title{
     margin: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
 }
 
 .appName{
@@ -53,15 +57,15 @@
 }
 
 .all{
-    background: rgb(43,43,56);
-    background: linear-gradient(18deg, rgba(43,43,56,1) 0%, rgba(60,60,110,1) 48%, rgba(105,83,124,1) 100%);
+    //background: rgb(43,43,56);
+    //background: linear-gradient(18deg, rgba(43,43,56,1) 0%, rgba(60,60,110,1) 48%, rgba(105,83,124,1) 100%);
     height: 100vh;
     width: 100vw;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    color: white;
+    color: black;
 }
 
 h2, h3, p {
@@ -75,12 +79,42 @@ h2, h3, p {
     }
 }
 
-@media (max-width: 450px) {
+@media (max-width: 590px) {
     h3{
         font-size: 0.60rem;
     }
 }
 
+@media (max-width: 360px) {
+    .allData{
+        flex-direction: column;
+    }
+    .dataJO{
+        width: 60vw;
+    }
+    .chart{
+        width: 80vw;
+    }
+
+}
+
 .logo{
     height: 15vh;
+}
+
+#bg-wrap{
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+}
+
+#bg-wrap svg {
+    width: 100vw;  /* ✅ Assure que le SVG prend toute la largeur */
+    height: 100vh; /* ✅ Assure qu'il prend toute la hauteur */
+    position: absolute;
+    top: 0;
+    left: 0;
 }

@@ -9,3 +9,27 @@
     padding: 0;
     font-family: Inter_Medium;
 }
+
+.apexcharts-tooltip {
+  background: rgba(180, 180, 180, 0.26) !important;
+  border-radius: 6px !important;
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.205) !important;
+  backdrop-filter: blur(5.6px) !important;
+  -webkit-backdrop-filter: blur(5.6px) !important;
+  border: 1px solid rgba(180, 180, 180, 0.31) !important;
+  color: #000000 !important;
+  //border: 1px solid #444 !important;
+}
+
+.apexcharts-tooltip-title {
+  background: rgba(180, 180, 180, 0.26) !important;
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.205) !important;
+  backdrop-filter: blur(5.6px) !important;
+  -webkit-backdrop-filter: blur(5.6px) !important;
+  color: #000000 !important;
+  padding: 6px 10px !important;
+}
+
+.apexcharts-tooltip-series-group {
+  gap: 10px !important;
+}

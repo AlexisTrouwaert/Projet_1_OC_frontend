@@ -1,0 +1,25 @@
+button{
+    height: 2rem;
+    width: 6rem;
+    color: black;
+    background: rgba(180, 180, 180, 0.26);
+    border-radius: 16px;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.205);
+    backdrop-filter: blur(5.6px);
+    -webkit-backdrop-filter: blur(5.6px);
+    border: 1px solid rgba(180, 180, 180, 0.31);
+    cursor: pointer;
+}
+
+.btnCountainer{
+    position: fixed;
+    bottom: 1rem;
+    right: 1rem;
+}
+
+@media (max-width: 500px){
+    button{
+        height: 1.5rem;
+        width: 4rem;
+    }
+}

@@ -53,7 +53,7 @@ export class ChartsComponent {
         }
       },
       responsive: [{
-        breakpoint: 715,
+        breakpoint: 870,
         options: {
           chart: { width: 250 },
           legend: { position: "bottom" }
